@@ -3,47 +3,29 @@ from enum import Enum
 from MessagersInterfaces import Listener, Notifier, T
 from RossServer import *
 from UMDDecoder import *
+import json
 
 
-class RossEventToBin(Listener[RossEvent], Notifier[bytes]):
+class RossEventToJson(Listener[RossEvent], Notifier[bytes]):
     def __init__(self, listener: Listener[bytes], num_of_cam=127):
-        '''
-        Creates "bytes" with lenght of 33
-        1-st byte - lenght of "bytes"
-        Others - camera's states
-        '''
+        """Fills the "list_of_cam" with the corresponding states ["RossState.OUT.value"]
+        of the corresponding cameras ["cam_num"]"""
         self._listener = listener
-        self._a = bytes()
-        self._a = [0] * 33
-        self._a[0] = 32
+        self._cam_num = num_of_cam
+        self._list_of_cam = [RossState.OUT.value] * self._cam_num
 
     def on_message(self, message: RossEvent, notifier: Notifier[RossEvent]):
-        '''
-        Fills the bytes with the corresponding state
-        of the corresponding camera
-        Param: RossState
-        Returns: bytes
-        '''
-        multi = 0
-        place = 0
-        for i in range (1, self._a[1] + 1, 1):
-            for k in range (1, 9, 1):
-                place = i * multi + k
-                if message.get_camera_id() == place:
-                    self._a[place] += message.get_camera_state()
-                    self._a[place] <<= 1
-                else:
-                    self._a[place] += 0
-                    self._a[place] <<= 1
-        self._listener(self._a, self)
+        """
+        Recieves int "num_of_cam and RossState.OUT.value and give both variables
+        to listener in ascii form
+        Param:
+        Returns:
+        """
+        self._list_of_cam[message.get_camera_id()] = message.get_camera_state()
+        local_list = self._list_of_cam
+        local_list = json.dumps(self._list_of_cam, separators=(',', ':'))
+        local_list = local_list.encode("ascii")
+        self._listener(local_list, self)
 
-
-
-
-
-
-
-'10001100 = 4 + 8 + 128 = 140' \
-'01001100 = 4 + 8  + 64 = 76' \
-'00001100 = 12' \
-'11001100 = 4 + 8 + 64 + 128 = 204'
+        'Написать чистую функцию, которая по листо оф кэм генеирт байтс' \
+        'может быть оверхэд'
