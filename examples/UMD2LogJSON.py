@@ -2,10 +2,15 @@
 An example of passing messages using observer (Notifier[T] -> Listener[T]) pattern
 
 Scheme:
+<<<<<<< HEAD
                           bytes               TSLEvent                RossEvent                  string
 socket - - - > UDPServer -------> UMDDecoder ----------> RossDecoder ----------> RossEventToJSON ----==
 
 ==----> ListenerLogger - - - > loguru
+=======
+                          bytes               TSLEvent
+socket - - - > UDPServer -------> UMDDecoder ----------> ListenerLogger - - - > loguru
+>>>>>>> ae1e08c (Added "JSONEncoder.py" and example file "UMD2LogJSON.py")
 """
 
 if __name__ == "__main__":
