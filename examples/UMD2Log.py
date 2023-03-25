@@ -1,14 +1,9 @@
 """
 An example of passing messages using observer (Notifier[T] -> Listener[T]) pattern
-
 Scheme:
                           bytes               TSLEvent
 socket - - - > UDPServer -------> UMDDecoder ----------> ListenerLogger - - - > loguru
 """
-<<<<<<< HEAD
-=======
-
->>>>>>> ae1e08c (Added "JSONEncoder.py" and example file "UMD2LogJSON.py")
 
 if __name__ == "__main__":
     import sys
