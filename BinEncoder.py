@@ -33,7 +33,7 @@ def translation(local_list) -> bytes:
     return a
 
 
-class RossEventToJson(Listener[RossEvent], Notifier[bytes]):
+class RossEventToBin(Listener[RossEvent], Notifier[bytes]):
     def __init__(self, listener: Listener[bytes], num_of_cam=127):
         """
         Fills the "list_of_cam" with the corresponding states ["RossState.OUT.value"]
