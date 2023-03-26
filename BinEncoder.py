@@ -43,7 +43,6 @@ class RossEventToJson(Listener[RossEvent], Notifier[bytes]):
         Returns:
         """
         self._list_of_cam[message.get_camera_id()] = message.get_camera_state()
-        local_list: list[int] = self._list_of_cam
         a = translation(self._list_of_cam)
         self._listener(a, self)
 
