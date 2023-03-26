@@ -4,7 +4,6 @@ from typing import List
 from MessagersInterfaces import Listener, Notifier, T
 from RossServer import *
 from UMDDecoder import *
-import json
 
 
 def translation(local_list) -> bytes:
@@ -48,5 +47,5 @@ class RossEventToJson(Listener[RossEvent], Notifier[bytes]):
         a = translation(self._list_of_cam)
         self._listener(a, self)
 
-        'Написать чистую функцию, которая по листо оф кэм генеирт байтс' \
+        'Написать чистую функцию, которая по листо оф кэм генерит байтс' \
         'может быть оверхэд'
