@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <title>{% block  title %} {% endblock %}</title>
+</head>
+
+<body>
+
+<br><br>
+
+<main class="main">
+        <div class="box-base">
+        <h1>Adding a new server</h1>
+        </div>
+<div class="content">
+     <form method="post" action="/add_message">
+<table class="iksweb">
+	<tbody>
+
+		<tr>
+			<td> port: </td>
+			<td><input type="text" name="port" autocomplete="off"> <br></td>
+<td >  </td>
+
+
+
+		</tr>
+        <tr>
+			<td class = "tt"> protocol: </td>
+            <br>
+			<td>
+                <form action="/maih.html">
+                      <label for="protocol"></label>
+                      <select id="protocol" name="protocol">
+                        <option value="JSON">JSON</option>
+                        <option value="BIN">BIN</option>
+                        <option value="TSL UMD v3.1">TSL UMD v3.1</option>
+                        <option value="sound">sound</option>
+                          <option value="ezTSL UMD">ezTSL UMD</option>
+                          <option value="filtered TSL UMD">filtered TSL UMD</option>
+                          <option value="filtered ezTSL UMD">filtered ezTSL UMD</option>
+
+
+                      </select>
+                </form>
+            </td>
+            <td></td>
+		</tr>
+        <tr>
+			<td> filtered_cameras: </td>
+			<td><input type="text" name="filtered_cameras" placeholder="1 2 3" autocomplete="off"> <br> </td>
+            <td style = "width:200px" > Использовать только для серверов с фильтром </td>
+
+
+
+		</tr>
+		<tr>
+
+            <td colspan="2"><button type=" submit"> Add server </button></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+<br>
+</div>
+ <div class="box-base">
+        <h1>List of active servers:</h1>
+</div>
+    {% for key, value in servers.items() %}
+
+    <div class="borderElement" >
+        {% if value.port != None %}
+        <p> port:  {{ value.port}} <br> </p>
+        {% endif %}
+
+        {% if value.protocol.value == 0 %}
+            <p> protocol:  sound <br> </p>
+
+
+        {% elif value.protocol.value == 1 %}
+            <p> protocol:  TSL UMD v3.1 <br> </p>
+
+
+        {% elif value.protocol.value == 2 %}
+            <p> protocol:  JSON <br> </p>
+
+        {% elif value.protocol.value == 4 %}
+            <p> protocol:  ezTSL UMD  <br> </p>
+
+        {% else %}
+            <p> protocol:   {{ value.protocol}} <br> </p>
+        {% endif %}
+
+        {% if value.filtered_cameras != None %}
+            {% if value.filtered_cameras|length == 0%}
+            <p> filtered_cameras: { } </p>
+
+            {% else %}
+            <p> filtered_cameras: {{value.filtered_cameras}} </p>
+            {% endif %}
+        {% endif %}
+
+        <div style="padding-left:20px"> <form method="post" action="/delete"> <button type="submit"> Delete server </button> <input type="hidden" id="servIndex" name="servIndex" value={{key}}><br>  </form> </div>
+    </div>
+    {% endfor %}
+</main>
+
+</body>
+</html>

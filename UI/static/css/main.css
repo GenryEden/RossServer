@@ -1,0 +1,138 @@
+a{
+color: #fff;
+text-decoration: none;
+}
+html{
+background: #6a7175;
+min-height: 100%;
+font-family: Helvetica;
+display: flex;
+flex-direction: column;
+}
+body{
+margin: 0;
+padding: 0 15px;
+display: flex;
+flex-direction: column;
+flex: auto;
+}
+h1{
+margin-top: 0;
+margin-bottom: 0;
+}
+
+h1, p{
+color: #ededef;
+}
+img{
+border: 0;
+}
+.header{
+width: 100%;
+min-width: 460px;
+max-width: 960px;
+margin: 0 auto 30px;
+padding: 30px 0 10px;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+box-sizing: border-box;
+}
+
+.main{
+width: 100%;
+min-width: 460px;
+max-width: 960px;
+margin: auto;
+flex: auto;
+box-sizing: border-box;
+}
+.box{
+font-size: 1.25rem;
+line-height: 1.5;
+margin: 0 0 40px -50px;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+}
+.box-base{
+margin-left: 50px;
+flex: 1 0 430px;
+}
+.box-side{
+margin-left: 50px;
+font: none;
+}
+
+.content{
+margin-bottom: 30px;
+display: flex;
+flex-wrap: wrap;
+}
+
+.footer{
+background: #3c4144;
+width: 100%;
+max-width: 960px;
+min-width: 460px;
+color: #fff;
+margin: auto;
+padding: 15px;
+box-sizing: border-box;
+}
+
+
+
+.borderElement {
+line-height: 2em;
+    width: 300px; /* Ширина слоя */
+    margin: 12px; /* Значение отступов */
+    padding: 15px; /* Поля вокруг текста */
+
+  background-color: #3c4144;
+  border: 0px solid #7922CC;
+  border-radius: 25px;
+
+}
+borderElement, p{
+color: #d3d9d8;
+font-size: 15px;
+ line-height: 1.1;
+padding-left: 20px;
+}
+
+table.iksweb{
+	width: 100%;
+	border-collapse:collapse;
+	border-spacing:0;
+	height: auto;
+}
+table.iksweb,table.iksweb td, table.iksweb th {
+	border: 1px solid #6a7175;
+}
+table.iksweb td,table.iksweb th {
+color: #fff;
+	padding: 10px;
+	width: 30px;
+	height: 35px;
+}
+table.iksweb th {
+	background: #6a7175;
+	color: #fff;
+	font-weight: normal;
+}
+
+tt
+{
+color: #fff;
+}
+
+rr{padding-left: 30px;
+width: 10px}
+
+
+
+
+
+
+
