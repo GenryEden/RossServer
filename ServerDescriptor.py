@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional
+from typing import Optional, Any
 
 
 class OutputProto(Enum):
@@ -36,16 +36,29 @@ class Descriptor:
 
     def __repr__(self):
         ans = "Descriptor: \""
-
         if self.protocol is not None:
-            ans += f"protocol: {self.protocol}; "
+            ans += f"protocol: {self.protocol};"
         if self.ip is not None:
-            ans += f"ip: {self.ip}; "
+            ans += f" ip: {self.ip};"
         if self.port is not None:
-            ans += f"port: {self.port}; "
+            ans += f" port: {self.port};"
         if self.transport is not None:
-            ans += f"transport: {self.transport}; "
+            ans += f" transport: {self.transport};"
         if self.filtered_cameras is not None:
             str_camera_list = ', '.join(str(i) for i in self.filtered_cameras)
-            ans += f"filtered cameras: {str_camera_list}; "
+            ans += f" filtered cameras: {str_camera_list};"
         return ans + "\""
+
+    def to_dict(self) -> dict[str, Any]:
+        ans = {}
+        if self.protocol is not None:
+            ans['protocol'] = self.protocol.value
+        if self.ip is not None:
+            ans['ip'] = self.ip
+        if self.port is not None:
+            ans['port'] = self.port
+        if self.transport is not None:
+            ans['transport'] = self.transport.value
+        if self.filtered_cameras is not None:
+            ans['filtered_cameras'] = list(self.filtered_cameras)
+        return ans
