@@ -44,9 +44,9 @@ class UDPServer(Notifier[bytes]):
             raise ServersExceptions.ServerAlreadyStartedException()
         with self._hostMutex:
             with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+                lg.debug(f"UDPListener at {self._host}:{self._port} is hosting")
                 sock.setblocking(False)
                 sock.bind((self._host, self._port))
-                lg.debug(f"UDPListener at {self._host}:{self._port} is hosting")
                 while not self._stopEvent.is_set():
                     try:
                         message, address = sock.recvfrom(self._bufferSize)

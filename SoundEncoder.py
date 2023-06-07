@@ -31,6 +31,7 @@ class SoundEncoder(OutputServer):
         """
             sends a message about camera statement
         """
+        lg.info(f"got {message} from {notifier}")
         if (message.state == RossState.PGM or message.state == RossState.BOTH) and \
                 self._lives.get(message.camera_id) is not True:
             lg.info(f"playing {self._directory + self.get_file_name(message)}")

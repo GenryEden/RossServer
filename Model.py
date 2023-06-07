@@ -16,6 +16,7 @@ from UDPServer import UDPServer
 from UMDDecoder import UMDDecoder
 from SoundEncoder import SoundEncoder
 import json
+from loguru import logger as lg
 
 class TSLTCPServer(NetworkOutputServer):
     def __init__(self, ip: str, port: int, repeat_for_new=False):
@@ -178,6 +179,7 @@ class JsonTCPServer(NetworkOutputServer):
 
 class ServersModel:
     def __init__(self, ip: str, listener_port=1337):
+        lg.info(f"{self} created")
         self._multiplexor: Multiplexor = Multiplexor()
         ross_decoder = RossDecoder(self._multiplexor)
         umd_decoder = UMDDecoder(ross_decoder)
@@ -243,6 +245,7 @@ class ServersModel:
         """
             creates and starts a new SoundServer (SoundEncoder)
         """
+        lg.info("added sound server in " + sound_directory)
         server = SoundEncoder(sound_directory)
         server.start()
         return self._multiplexor.add_listener(server)
@@ -289,5 +292,4 @@ def get_model_from_json(filename) -> ServersModel:
                 model.add_filtered_eztslumd(value['port'], set(value['filtered_cameras']))
             else:
                 model.add_eztslumd(value['port'])
-    model.run()
     return model

@@ -10,12 +10,9 @@ from ServerDescriptor import OutputProto
 
 app = Flask(__name__)
 
-Server = namedtuple('ID', 'ID port protocol')
 servers = Model.ServersModel("127.0.0.1")
-servers.run()
 servers.add_sound("../sounds/")
-servers.add_filtered_eztslumd(1234, {1, 2})
-
+servers.run()
 
 @app.route('/', methods=['GET'])
 def main():

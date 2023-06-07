@@ -37,7 +37,6 @@
                         <option value="JSON">JSON</option>
                         <option value="BIN">BIN</option>
                         <option value="TSL UMD v3.1">TSL UMD v3.1</option>
-                        <option value="sound">sound</option>
                           <option value="ezTSL UMD">ezTSL UMD</option>
                           <option value="filtered TSL UMD">filtered TSL UMD</option>
                           <option value="filtered ezTSL UMD">filtered ezTSL UMD</option>
@@ -101,8 +100,9 @@
             <p> filtered_cameras: {{value.filtered_cameras}} </p>
             {% endif %}
         {% endif %}
-
+        {% if value.protocol.value != 0 %}
         <div style="padding-left:20px"> <form method="post" action="/delete"> <button type="submit"> Delete server </button> <input type="hidden" id="servIndex" name="servIndex" value={{key}}><br>  </form> </div>
+        {% endif %}
     </div>
     {% endfor %}
 </main>
