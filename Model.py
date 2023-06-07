@@ -15,7 +15,7 @@ from TSLUMDEncoder import RossEventToTSLUMD
 from UDPServer import UDPServer
 from UMDDecoder import UMDDecoder
 from SoundEncoder import SoundEncoder
-
+import json
 
 class TSLTCPServer(NetworkOutputServer):
     def __init__(self, ip: str, port: int, repeat_for_new=False):
@@ -254,3 +254,40 @@ class ServersModel:
         server = JsonTCPServer(self._ip, port, repeat_for_new)
         server.start()
         return self._multiplexor.add_listener(server)
+
+    def write_json_config(self, filename):
+        config_dict = {"ip": self._ip, "listener_port": self._listener_port, 'descriptors': {}}
+
+        for key, value in self.get_descriptors().items():
+            config_dict['descriptors'][key] = value.to_dict()
+
+        print(config_dict)
+        with open(filename, 'w') as f:
+            json.dump(config_dict, f, indent=4)
+
+
+def get_model_from_json(filename) -> ServersModel:
+    with open(filename) as f:
+        config_dict = json.load(f)
+    ip = config_dict.pop('ip')
+    listener_port = config_dict.pop('listener_port')
+    model = ServersModel(ip, listener_port)
+    desc_dict = config_dict['descriptors']
+    for key, value in desc_dict.items():
+        proto = OutputProto(value['protocol'])
+        if proto == OutputProto.SOUND:
+            model.add_sound()
+        if proto == OutputProto.JSON:
+            model.add_json(value['port'])
+        if proto == OutputProto.TSLUMD:
+            if 'filtered_cameras' in value:
+                model.add_filtered_tslumd(value['port'], set(value['filtered_cameras']))
+            else:
+                model.add_tslumd(value['port'])
+        if proto == OutputProto.EZTSLUMD:
+            if 'filtered_cameras' in value:
+                model.add_filtered_eztslumd(value['port'], set(value['filtered_cameras']))
+            else:
+                model.add_eztslumd(value['port'])
+    model.run()
+    return model
